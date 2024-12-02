@@ -1,0 +1,69 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition	Tips: Project must be created by the user before 
+Post Condition	Logged off.
+Tags Issue, CRUD, 3.task
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+# Issue Page URLs
+IssuePageUrl            https://gitlab.com/testing-course1/first-test-project/-/issues/new
+
+# Test Data for Issue Operations
+IssueTitle         		Test
+UpdatedIssueTitle       Updated_Test
+DuplicateIssueTitle     duplicate_Test
+SecondIssueTitle        second_Test
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+	Create issue,
+ 	Update name of issue, 
+	Create second issue with privious updated name
+    Delete first issue
+
+Create issue
+    Navigate To Issue Page      IssuePageUrl
+    Input Issue title           IssueTitle
+    Input Issue Description     [Add a relevant description, e.g., "This is a test issue."]
+    Submit Issue Form
+    Verify Page Should Contain Issue created just now by Pertti Tiainen 
+
+Update name of issue
+    Navigate To Existing Issue  [Go to the details page of 'IssueTitle']
+    Click Edit Button           [Click on the edit to modify the issue name]
+    Update Issue title          UpdatedIssueName
+    Save changes
+    Verify Page Should Contain Pertti Tiainen changed title from test to Updated_test just now.
+
+Create second issue with the previous updated name
+    Navigate To Issue Page      IssuePageUrl
+    Input Issue title           DuplicateIssueName
+    Submit Issue Form
+    Verify Page Should Contain Issue created just now by Pertti Tiainen 
+
+Delete first issue
+    Navigate To Existing Issue  [Go to the details page of 'Issue']
+    Click three dots Button    	[Dropdown menu will appear]
+	Click delete issue Button	[Click on the delete to remove the issue]
+    Confirm Delete Action       [Confirm delete issue but clicking on it in the popup]
+    Verify Page Should Contain The issue was successfully deleted.

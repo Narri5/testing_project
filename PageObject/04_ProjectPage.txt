@@ -1,0 +1,95 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Documentation	
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition		Log in. Navigate to the projext creation page.
+Post Condition		Logged out.
+Tags 				Project, Crud, 2.task
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Project creation field variables
+
+# Project Page URLs
+ProjectPageUrl          https://gitlab.com/projects/new
+BlankProjectUrl         https://gitlab.com/projects/new#blank_project
+TemplateProjectUrl      https://gitlab.com/projects/new#create_from_template
+CreatedprojectUrl		https://gitlab.com/testing-course1/the_project
+
+# Test Data for Project Operations
+ValidProjectName        The_project
+TemplateProjectName     Template_project
+UpdatedProjectName      Updated_Project
+DuplicateProjectName    Duplicate_Project
+Visilibility			Public
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Test examples are below write test process steps for each below test case
+
+	Create blank project
+	Create template project 
+	Update name of template project
+	Delete template project
+	Valide that message is showing Project 'First project ' was successfully created.
+
+Create blank project
+    Navigate To Project Page   		BlankProjectUrl
+    Input Project Name         		ValidProjectName
+	Select visibility level			Visibility
+    Submit Project Creation Form
+    Verify Page Should Contain Project 'the_project' was successfully created. 
+
+Create template project
+    Navigate To Project Page   		BlankProjectUrl
+    Input Project Name         		TemplateProjectName
+    Select Template Option     		[Choose a specific template]
+	Select visibility level			Visibility
+    Submit Project Creation Form
+    Verify Page Should Contain The project was successfully imported.
+
+Update name of template project
+    Navigate To Project Page   		CreatedprojectUrl
+	Navigate to edit page			[Navigate to settings page for the created project]
+    Update Project Name         	UpdatedProjectName
+    Save changes
+    Verify Page Should Contain Project 'Updated_Project' was successfully updated. 
+
+Delete template project
+    Navigate To Project Page   		CreatedprojectUrl
+    Navigate To edit Page  			[Navigate to settings page for the created project]
+	Select Advanced
+    Delete Project             		[Click delete project and write project name for confirm action. click yes, delete project]
+    Verify Page Should Contain not contain the project.
+
+
+# Negative Test examples are below write test process steps for each below test case
+
+	Create a blank project with the previous same name
+
+Create a blank project with the same previous name
+    Navigate To Project Page   BlankProjectUrl
+    Input Project Name         DuplicateProjectName
+    Submit Project Creation Form
+    Verify Page Should Contain "The form contains the following errors: 1.Project namespace name has already been taken. 2.Name has already been taken. 3. Path has already been taken.
+
+Create a blank project with an empty name
+    Navigate To Project Page   BlankProjectUrl
+    Input Project Name         Empty
+    Submit Project Creation Form
+    Verify Page Should Contain Error message 'Täytä tämä kenttä.'
